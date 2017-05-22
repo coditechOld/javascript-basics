@@ -5,8 +5,18 @@
   <title>Step 3</title>
 </head>
 <body>
+<div id="div" style="color: #f24971; background-color:black ">
+
+</div>
   <form>
     <label for="name">Your name  : </label><input type="text" name="name" value="" id="name"/>
   </form>
+  <script>
+    const name = document.getElementById('name');
+    const div  = document.getElementById('div');
+    name.addEventListener('change', function () {
+        div.innerHTML = name.value;
+    });
+  </script>
 </body>
 </html>
