@@ -1,16 +1,15 @@
-
 /**
  * startApp - Starts the applucation
  *
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name){
-  process.stdin.resume();
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', onDataReceived);
-  console.log("Welcome to "+name+"'s application!")
-  console.log("--------------------")
+function startApp(name) {
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', onDataReceived);
+    console.log("Welcome to " + name + "'s application!")
+    console.log("--------------------")
 }
 
 
@@ -21,17 +20,24 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n'|| text === 'exit\n') {
-    quit();
-  }
-  else if(text === 'hello\n'){
-    hello();
-  } else if(text === 'help\n'){
-    help();
-  }
-  else{
-    unknownCommand(text);
-  }
+
+    const array = text.split(' ');
+    console.log(array);
+
+    text = array[0];
+    const arg1 = array[1].replace(/\n$/, "");
+    console.log(arg1);
+    if (text === 'quit\n' || text === 'exit\n') {
+        quit();
+    }
+    else if (text === 'hello\n' || text === 'hello') {
+        hello(arg1);
+    } else if (text === 'help\n') {
+        help();
+    }
+    else {
+        unknownCommand(text);
+    }
 }
 
 
@@ -41,18 +47,24 @@ function onDataReceived(text) {
  * @param  {string} c the text received
  * @returns {void}
  */
-function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+function unknownCommand(c) {
+    console.log('unknown command: "' + c.trim() + '"')
 }
 
 
 /**
  * hello - Says hello
+ * hello X - Says hello X
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(hello) {
+    if (!hello) {
+        console.log('hello!')
+
+    } else {
+        console.log('hello ' + hello + '!')
+    }
 }
 
 
@@ -61,21 +73,22 @@ function hello(){
  *
  * @returns {void}
  */
-function quit(){
-  console.log('Quitting now, goodbye!')
-  process.exit();
+function quit() {
+    console.log('Quitting now, goodbye!')
+    process.exit();
 }
 /**
  * help - display lists of all the possible commands
  * @returns {void}
  * */
 function help() {
-  console.log("Base6 available command\n" +
-      "*****************\n" +
-      "hello: Says hello\n" +
-      "quit: exits the application\n" +
-      "exit: exits the application\n"
-  );
+    console.log("Base6 available command\n" +
+        "*****************\n" +
+        "hello: Says hello\n" +
+        "hello X: Says hello X!\n" +
+        "quit: exits the application\n" +
+        "exit: exits the application\n"
+    );
 
 }
 
