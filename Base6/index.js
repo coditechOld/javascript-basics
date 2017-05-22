@@ -21,11 +21,13 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  if (text === 'quit\n'|| text === 'exit\n') {
     quit();
   }
   else if(text === 'hello\n'){
     hello();
+  } else if(text === 'help\n'){
+    help();
   }
   else{
     unknownCommand(text);
@@ -63,6 +65,19 @@ function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
 }
+/**
+ * help - display lists of all the possible commands
+ * @returns {void}
+ * */
+function help() {
+  console.log("Base6 available command\n" +
+      "*****************\n" +
+      "hello: Says hello\n" +
+      "quit: exits the application\n" +
+      "exit: exits the application\n"
+  );
+
+}
 
 // STARTING THE APPLICATION HERE!
-startApp("Jad Sarout")
+startApp("Gaby Karam")
