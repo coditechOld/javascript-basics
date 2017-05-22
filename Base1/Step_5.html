@@ -10,5 +10,15 @@
             <label for="second_number">second number : </label><input type="text" id="second_number" name="second_number"/><br/>
             <button  id="validate" name ="validate">validate</button>
         </form>
+
+        <script>
+            const first_number = document.getElementById("first_number");
+            const second_number = document.getElementById("second_number");
+
+            validate.addEventListener('click', function () {
+               alert("The Result is " + parseInt(first_number.value)* parseInt(second_number.value));
+            })
+
+        </script>
     </body>
 </html>
