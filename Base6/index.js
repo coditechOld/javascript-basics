@@ -1,3 +1,4 @@
+var list = [];
 /**
  * startApp - Starts the applucation
  *
@@ -25,7 +26,11 @@ function onDataReceived(text) {
     console.log(array);
 
     text = array[0];
-    const arg1 = array[1].replace(/\n$/, "");
+    console.log(array[1]);
+    var arg1 = '';
+    if (array[1]) {
+        arg1 = array[1].replace(/\n$/, "");
+    }
     console.log(arg1);
     if (text === 'quit\n' || text === 'exit\n') {
         quit();
@@ -34,6 +39,14 @@ function onDataReceived(text) {
         hello(arg1);
     } else if (text === 'help\n') {
         help();
+    } else if (text === 'add' && arg1 !== '' && arg1 !== null && arg1 !== undefined) {
+        add(arg1);
+    } else if (text === 'help\n') {
+        help();
+    } else if (text === 'list\n') {
+        lists();
+    } else if (text === 'remove\n') {
+        remove();
     }
     else {
         unknownCommand(text);
@@ -77,6 +90,7 @@ function quit() {
     console.log('Quitting now, goodbye!')
     process.exit();
 }
+
 /**
  * help - display lists of all the possible commands
  * @returns {void}
@@ -87,10 +101,51 @@ function help() {
         "hello: Says hello\n" +
         "hello X: Says hello X!\n" +
         "quit: exits the application\n" +
-        "exit: exits the application\n"
+        "exit: exits the application\n" +
+        "add: Adding a Task to the list\n" +
+        "list: Displaying all the list\n" +
+        "remove: Removing The last Tasks from the list\n"
     );
 
 }
+
+/**
+ * add  X- add task X to the list
+ * @returns {void}
+ * */
+function add(task) {
+    console.log("Addink Task to the list\n" +
+        "*****************\n"
+    );
+    list.unshift(task);
+    console.log(list);
+
+}
+
+/**
+ * list - Listing all Tasks
+ * @returns {void}
+ * */
+function lists() {
+    console.log("Listing all Tasks\n" +
+        "*****************\n"
+    );
+    console.log(list);
+
+}
+/**
+ * remove  - remove the last task from the list
+ * @returns {void}
+ * */
+function remove() {
+    console.log("Removing The last Tasks from the list\n" +
+        "*****************\n"
+    );
+    list.pop();
+    console.log(list);
+
+}
+
 
 // STARTING THE APPLICATION HERE!
 startApp("Gaby Karam")
