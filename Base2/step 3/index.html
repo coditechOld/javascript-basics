@@ -3,10 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title>Step 3</title>
+  <script type="text/javascript">
+    function doThings()
+    {
+      let text=document.querySelector('#name');
+      let div1=document.querySelector('#div1');
+      div1.innerHTML=text.value;
+    }
+  </script>
 </head>
 <body>
   <form>
-    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name"/>
+    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name" onchange="doThings()"/>
   </form>
+  <div id="div1" style="max-width:500px;min-height:20px;border:1px solid black;">
+
+  </div>
 </body>
 </html>
