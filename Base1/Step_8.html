@@ -3,11 +3,18 @@
     <head>
         <title>Step 8</title>
         <meta charset="UTF-8">
+        <script type="text/javascript">
+        function doStuff(){
+        let age = parseInt (document.getElementById("age").value);
+        if (age>18){alert("you are over 18")}
+        else { alert("you are under 18")}
+        }
+        </script>
     </head>
     <body>
         <form>
-            <label for="age">your age : </label><input type="text" id="age" name="age"/><br/>
-            <button id="validate" name="validate">validate</button>
+            <label for="age">your age : </label><input type="stext" id="age" name="age"/><br/>
+            <button id="validate" name="validate" onclick="doStuff()">validate</button>
         </form>
     </body>
 </html>
