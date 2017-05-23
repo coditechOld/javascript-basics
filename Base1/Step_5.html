@@ -3,12 +3,20 @@
     <head>
         <title>Step 5</title>
         <meta charset="UTF-8">
+        <script type="text/javascript">
+        function multiply(){
+        let number1 = parseInt (document.getElementById("first_number").value);
+        let number2 = parseInt (document.getElementById("second_number").value);
+        let total=number1*number2;
+        alert (total);
+      }
+        </script>
     </head>
     <body>
         <form>
             <label for="first_number">first number : </label><input type="text" id="first_number" name="first_number"/><br/>
             <label for="second_number">second number : </label><input type="text" id="second_number" name="second_number"/><br/>
-            <button  id="validate" name ="validate">validate</button>
+            <button  id="validate" name ="validate" onclick="multiply()">validate</button>
         </form>
     </body>
 </html>
