@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8">
   <title>Step 2</title>
+  <script type="text/javascript">
+  function doThings(){
+    alert("thank you for participating!");
+  }
+
+  </script>
 </head>
 <body>
   <form>
-    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name"/>
+    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name" onblur="doThings()"/>
   </form>
 </body>
 </html>
