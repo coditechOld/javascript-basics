@@ -21,11 +21,14 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  if (text === 'quit\n'|| text==='exit\n') {
     quit();
   }
   else if(text === 'hello\n'){
     hello();
+  }
+  else if(text === 'help\n'){
+  help();
   }
   else{
     unknownCommand(text);
@@ -63,6 +66,13 @@ function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
 }
+/**
+* help - lists all possible inputs
+*
+*/
+function help(){
+  console.log('Here is a list of all possible commands: \nhello\nquit\nexit ');
+}
 
 // STARTING THE APPLICATION HERE!
-startApp("Jad Sarout")
+startApp("Chriss Haddad")
