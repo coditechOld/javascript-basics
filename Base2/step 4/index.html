@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Step 4</title>
+  <script type="text/javascript">
+    function doThings() {
+      if (confirm("Are you sure?") == true) {
+
+        document.getElementById('name').value = "";
+        document.getElementById('surname').value = "";
+        document.getElementById('city').value = "";
+      }
+    }
+  </script>
 </head>
+
 <body>
   <form>
     <label for="name">Your name  : </label><input type="text" name="name" value="Doe" id="name" />
     <label for="surname">Your surname  : </label><input type="text" name="surname" value="John" id="surname" />
     <label for="city">Your city  : </label><input type="text" name="city" value="New York" id="city" />
-    <button type="button" name="button">Reset</button>
+    <button type="button" name="button" onclick="doThings()">Reset</button>
   </form>
 </body>
+
 </html>

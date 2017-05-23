@@ -4,21 +4,21 @@
 <head>
   <meta charset="utf-8">
   <title>Step 1</title>
-  <script type="text/javascript">
-    function changeImageIn() {
-      let img1 = document.querySelector('#image1');
-      img1.src = 'images/image1_2.jpg';
-    }
-
-    function changeImageOut() {
-      let img1 = document.querySelector('#image1');
-      img1.src = 'images/image1.jpg';
-    }
-  </script>
 </head>
 
 <body>
   <img src="images/image1.jpg" id="image1" onmouseover="changeImageIn()" onmouseout="changeImageOut()" />
 </body>
+<script type="text/javascript">
+let img1 = document.querySelector('#image1');
+  function changeImageIn() {
+    
+    img1.src = 'images/image1_2.jpg';
+  }
 
+  function changeImageOut() {
+
+    img1.src = 'images/image1.jpg';
+  }
+</script>
 </html>
