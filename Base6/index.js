@@ -1,4 +1,5 @@
 var list = [];
+var parse = require('shell-quote').parse;
 /**
  * startApp - Starts the applucation
  *
@@ -25,8 +26,48 @@ function onDataReceived(text) {
     const array = text.split(' ');
     console.log(array);
 
+    arguments = text.substr(text.indexOf(" ") + 1);
+
+
     text = array[0];
     console.log(array[1]);
+
+    const arg = [];
+    var string = '';
+    var previousString = '';
+    var previous = ' ';
+    var counter = 0;
+    var quoteCounter = 0;
+    console.log('arguments');
+    console.log(arguments);
+    for (var i = 0; i < arguments.length; i++) {
+
+        const currentChar = arguments.charAt(i);
+        if (previous === ' ') {
+            string = '';
+        }
+
+        console.log("current char");
+        console.log(currentChar);
+
+        if (currentChar === '"' && previous === ' ' && arguments.charAt(i + 1) === ' ') {
+            quoteCounter++;
+            console.log("current char");
+            console.log(currentChar);
+        }
+        if (currentChar === ' ' && previous !== ' ' && quoteCounter % 2 === 0) {
+            string = '';
+        } else if (currentChar === '"' && quoteCounter % 2 === 0 && string.trim() !== '') {
+            arg[counter++] = string;
+        }
+
+        previous = currentChar;
+        previousString = string;
+        string += previous;
+    }
+
+    console.log('array');
+    console.log(arg);
     var arg1 = '';
     if (array[1]) {
         arg1 = array[1].replace(/\n$/, "");
