@@ -108,7 +108,7 @@ describe('Numbers and math : ', function () {
     });
   });
   describe('BMI',function(){
-    it('Gets a person\'s BMI (weight / height * height). Round to two decimals', function () {
+    it('Gets a person\'s BMI (weight / (height * height)). Round to two decimals', function () {
         var result = BMI(65, 1.75);
         expect(result).toEqual(21.22);
     });
