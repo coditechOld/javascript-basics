@@ -8,7 +8,17 @@
   <form>
     <label for="password">password : </label><input type="text" name="password" value="" id="password" />
     <label for="confirmation">Confirm : </label><input type="text" name="confirmation" value="" id="confirmation" />
-    <button type="button" name="button" >Test</button>
+    <button type="button" name="button" onclick="confirm()" >Test</button>
   </form>
 </body>
+<script type="text/javascript">
+function confirm(){
+  let pass=document.getElementById('password');
+  let conf=document.getElementById('confirmation');
+  if (pass.value != conf.value){
+    pass.style="border:3px red solid;"
+    conf.style="border:3px red solid;"
+  }
+}
+</script>
 </html>
