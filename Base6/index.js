@@ -50,18 +50,20 @@ function onDataReceived(text) {
       } else {
         console.log("\nyour task list is empty\n");
       }
-    } else if (text.startsWith('do ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
+    } else if (text.startsWith('do ') && (/\d+/.test(text.trim().slice(3, text.length - 1))) && text.endsWith("\n")) {
       if (tasks.length > 0) {
-        var index = tasks.length - 1;
+        var index = parseInt(text.slice(3, text.length - 1));
         done(index);
+        console.log("\ndid task "+index+" - "+tasks[index-1].name)
       } else {
         console.log("\nyour task list is empty\n");
       }
 
     } else if (text.startsWith('undo ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
       if (tasks.length > 0) {
-        var index = tasks.length - 1;
+        var index = parseInt(text.slice(5, text.length - 1));
         undone(index);
+          console.log("\nundid task "+index+" - "+tasks[index-1].name)
       } else {
         console.log("\nyour task list is empty\n")
       }
