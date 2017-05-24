@@ -48,6 +48,21 @@ function onDataReceived(text) {
         var index = tasks.length - 1;
         editModeByEdit();
       } else {
+        console.log("\nyour task list is empty\n");
+      }
+    } else if (text.startsWith('do ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
+      if (tasks.length > 0) {
+        var index = tasks.length - 1;
+        done(index);
+      } else {
+        console.log("\nyour task list is empty\n");
+      }
+
+    } else if (text.startsWith('undo ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
+      if (tasks.length > 0) {
+        var index = tasks.length - 1;
+        undone(index);
+      } else {
         console.log("\nyour task list is empty\n")
       }
     } else {
@@ -59,8 +74,8 @@ function onDataReceived(text) {
       console.log("nothing changed going back to normal mode");
       mode = "normal";
     } else {
-      tasks[index]=text;
-      mode="normal";
+      tasks[index].name = text;
+      mode = "normal";
     }
   }
 }
@@ -95,7 +110,11 @@ function helloSomeone(x) {
  * @returns {void}
  */
 function add(x) {
-  tasks.push(x);
+  var task = {
+    name: x,
+    status: "undone"
+  };
+  tasks.push(task);
   console.log('\nadded task: "' + x + '"\n');
 }
 /**
@@ -106,7 +125,8 @@ function add(x) {
 function list() {
   console.log("\nhere's the list of tasks:")
   for (var i = 0; i < tasks.length; i++) {
-    console.log("-" + tasks[i]);
+    console.log((i + 1) + " - " + tasks[i].name + ", status: " + tasks[i].status);
+
   }
   console.log(' \n');
 
@@ -143,7 +163,7 @@ function editModeByIndex(x) {
   console.log("\nedit mode\n");
   if (x <= tasks.length && x > 0) {
     mode = "edit";
-    console.log("\nediting task: " + tasks[x - 1] + "\n");
+    console.log("\nediting task: " + tasks[x - 1].name + "\n");
   } else {
     console.log("\nthat index is not within the number of tasks, number of tasks is: " + tasks.length)
   }
@@ -153,8 +173,16 @@ function editModeByEdit() {
   console.log("\nedit mode\n");
   if (tasks.length > 0) {
     mode = "edit";
-    console.log("\nediting task: " + tasks[tasks.length - 1] + "\n");
+    console.log("\nediting task: " + tasks[tasks.length - 1].name + "\n");
   }
+}
+
+function done(x) {
+  tasks[x - 1].status = "done";
+}
+
+function undone(x) {
+  tasks[x - 1].status = "undone";
 }
 /**
  * help - lists all possible inputs
@@ -170,7 +198,10 @@ function help() {
     'list - lists tasks  \n' +
     'remove - removes the last task in the list \n' +
     'remove "index" - removes the task at that index \n' +
-    'edit - enters edit mode\n');
+    'edit - enters edit mode\n' +
+    'edit "index" - enters edit mode at that index\n' +
+    'do "index" - changes a tasks status to done\n' +
+    'undo "index" - changes a tasks status to undone\n');
 }
 
 // STARTING THE APPLICATION HERE!
