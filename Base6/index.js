@@ -35,6 +35,8 @@ function onDataReceived(text) {
     list();
   } else if (text === "remove\n") {
     remove();
+  } else if (text.startsWith('remove ') && text.endsWith("\n")) {
+    removeByIndex(parseInt(text.slice(7, text.length-1)));
   } else {
     unknownCommand(text);
   }
@@ -83,7 +85,7 @@ function list() {
   for (var i = 0; i < tasks.length; i++) {
     console.log("-" + tasks[i]);
   }
-console.log(' \n');
+  console.log(' \n');
 
 }
 /**
@@ -99,9 +101,17 @@ function quit() {
  * remove - removes last taks from list
  *
  */
- function remove(){
-   console.log('\nremoved task:"'+tasks.pop()+'"\n');
- }
+function remove() {
+  console.log('\nremoved task:"' + tasks.pop() + '"\n');
+}
+
+function removeByIndex(x) {
+  if (x < 0 || x >= tasks.length || isNaN(x)) {
+    console.log("\nindex not in array or you haven't entered a number\n");
+  } else {
+    console.log('removed task: "' + tasks.splice(x, 1) + '"\n');
+  }
+}
 /**
  * help - lists all possible inputs
  *
@@ -114,7 +124,8 @@ function help() {
     'quit - quits the application \nexit - exists the application  \n' +
     'add "task"- adds a task \n' +
     'list - lists tasks  \n' +
-     'remove - removes the last task in the list \n');
+    'remove - removes the last task in the list \n' +
+    'remove "index" - removes the task at that index \n');
 }
 
 // STARTING THE APPLICATION HERE!
