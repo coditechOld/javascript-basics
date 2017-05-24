@@ -1,4 +1,5 @@
 'use strict';
+var readline = require('readline');
 /**
  * startApp - Starts the applucation
  *
@@ -21,24 +22,46 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n' || text === 'exit\n') {
-    quit();
-  } else if (text === 'hello\n') {
-    hello();
-  } else if (text === 'help\n') {
-    help();
-  } else if (text.startsWith('hello ') && text.endsWith("\n")) {
-    helloSomeone(text.slice(6, text.length - 1));
-  } else if (text.startsWith('add ') && text.endsWith("\n")) {
-    add(text.slice(4, text.length - 1));
-  } else if (text === 'list\n') {
-    list();
-  } else if (text === "remove\n") {
-    remove();
-  } else if (text.startsWith('remove ') && text.endsWith("\n")) {
-    removeByIndex(parseInt(text.slice(7, text.length-1)));
-  } else {
-    unknownCommand(text);
+  if (mode == "normal") {
+
+    if (text === 'quit\n' || text === 'exit\n') {
+      quit();
+    } else if (text === 'hello\n') {
+      hello();
+    } else if (text === 'help\n') {
+      help();
+    } else if (text.startsWith('hello ') && text.endsWith("\n")) {
+      helloSomeone(text.slice(6, text.length - 1));
+    } else if (text.startsWith('add ') && text.endsWith("\n")) {
+      add(text.slice(4, text.length - 1));
+    } else if (text === 'list\n') {
+      list();
+    } else if (text === "remove\n") {
+      remove();
+    } else if (text.startsWith('remove ') && text.endsWith("\n")) {
+      removeByIndex(parseInt(text.slice(7, text.length - 1)));
+    } else if (text.startsWith('edit ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
+      var index = parseInt(text.slice(5, text.length - 1));
+      editModeByIndex(index);
+    } else if (text === "edit\n") {
+      if (tasks.length > 0) {
+        var index = tasks.length - 1;
+        editModeByEdit();
+      } else {
+        console.log("\nyour task list is empty\n")
+      }
+    } else {
+      unknownCommand(text);
+    }
+  } else if (mode == "edit") {
+
+    if (text.trim() == "") {
+      console.log("nothing changed going back to normal mode");
+      mode = "normal";
+    } else {
+      tasks[index]=text;
+      mode="normal";
+    }
   }
 }
 
@@ -113,6 +136,27 @@ function removeByIndex(x) {
   }
 }
 /**
+ * edit - editing tasks values
+ *
+ */
+function editModeByIndex(x) {
+  console.log("\nedit mode\n");
+  if (x <= tasks.length && x > 0) {
+    mode = "edit";
+    console.log("\nediting task: " + tasks[x - 1] + "\n");
+  } else {
+    console.log("\nthat index is not within the number of tasks, number of tasks is: " + tasks.length)
+  }
+}
+
+function editModeByEdit() {
+  console.log("\nedit mode\n");
+  if (tasks.length > 0) {
+    mode = "edit";
+    console.log("\nediting task: " + tasks[tasks.length - 1] + "\n");
+  }
+}
+/**
  * help - lists all possible inputs
  *
  */
@@ -125,9 +169,12 @@ function help() {
     'add "task"- adds a task \n' +
     'list - lists tasks  \n' +
     'remove - removes the last task in the list \n' +
-    'remove "index" - removes the task at that index \n');
+    'remove "index" - removes the task at that index \n' +
+    'edit - enters edit mode\n');
 }
 
 // STARTING THE APPLICATION HERE!
+
+let mode = "normal";
 let tasks = new Array();
 startApp("Chriss Haddad")
