@@ -1,5 +1,5 @@
 'use strict';
-var readline = require('readline');
+var fs = require('fs');
 /**
  * startApp - Starts the applucation
  *
@@ -50,11 +50,13 @@ function onDataReceived(text) {
       } else {
         console.log("\nyour task list is empty\n");
       }
+    } else if (text == "save\n") {
+      save();
     } else if (text.startsWith('do ') && (/\d+/.test(text.trim().slice(3, text.length - 1))) && text.endsWith("\n")) {
       if (tasks.length > 0) {
         var index = parseInt(text.slice(3, text.length - 1));
         done(index);
-        console.log("\ndid task "+index+" - "+tasks[index-1].name)
+        console.log("\ndid task " + index + " - " + tasks[index - 1].name)
       } else {
         console.log("\nyour task list is empty\n");
       }
@@ -63,7 +65,7 @@ function onDataReceived(text) {
       if (tasks.length > 0) {
         var index = parseInt(text.slice(5, text.length - 1));
         undone(index);
-          console.log("\nundid task "+index+" - "+tasks[index-1].name)
+        console.log("\nundid task " + index + " - " + tasks[index - 1].name)
       } else {
         console.log("\nyour task list is empty\n")
       }
@@ -139,8 +141,10 @@ function list() {
  * @returns {void}
  */
 function quit() {
-  console.log('Quitting now, goodbye!')
+
+  console.log('\nQuitting now, goodbye!')
   process.exit();
+
 }
 /**
  * remove - removes last taks from list
@@ -186,6 +190,25 @@ function done(x) {
 function undone(x) {
   tasks[x - 1].status = "undone";
 }
+
+function save() {
+  if (tasks.length > 0) {
+    var str = JSON.stringify(tasks);
+    fs.writeFile('file.json', str, {
+      encoding: 'utf8'
+    }, function(err) {
+      if (err) {
+        console.error('there was an error: ', err);
+        return;
+      } else {
+        console.log('all good, thanks')
+      }
+    });
+    console.log('\ndata was appended to file\n');
+  } else {
+    console.log("\nyour console is empty\n")
+  }
+}
 /**
  * help - lists all possible inputs
  *
@@ -210,4 +233,7 @@ function help() {
 
 let mode = "normal";
 let tasks = new Array();
+
+
+
 startApp("Chriss Haddad")
