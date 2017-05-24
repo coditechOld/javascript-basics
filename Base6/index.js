@@ -9,8 +9,8 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log("Welcome to "+name+"'s application!")
-  console.log("--------------------")
+  console.log("Welcome to "+name+"'s application!");
+  console.log("--------------------");
 }
 
 
@@ -29,6 +29,9 @@ function onDataReceived(text) {
   }
   else if(text === 'help\n'){
   help();
+  }
+  else if (text.startsWith('hello ')&& text.endsWith("\n")) {
+  helloSomeone(text.slice(6,text.length-1));
   }
   else{
     unknownCommand(text);
@@ -55,6 +58,9 @@ function unknownCommand(c){
 function hello(){
   console.log('hello!')
 }
+function helloSomeone(x){
+  console.log('hello '+x+"!");
+}
 
 
 /**
@@ -71,7 +77,11 @@ function quit(){
 *
 */
 function help(){
-  console.log('Here is a list of all possible commands: \nhello\nquit\nexit ');
+  console.log(
+  '\nHere is a list of all possible commands: \n'+
+  'hello - Simple Hello! \n'+
+  'hello "yourname" - shows your name with the hello\n'+
+  'quit - quits the application \nexit - exists the application  ');
 }
 
 // STARTING THE APPLICATION HERE!
