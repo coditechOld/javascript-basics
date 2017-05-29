@@ -151,7 +151,14 @@ function help() {
         "exit: exits the application\n" +
         "add: Adding a Task to the list\n" +
         "list: Displaying all the list\n" +
-        "remove: Removing The last Tasks from the list\n";
+        "remove: Removing The last Tasks from the list\n"+
+        "remove X: Removing The X Tasks from the list\n"+
+        "done X: Mark a task X as Done\n"+
+        "undone X:  Mark a task X as unDone\n"+
+        "save  X:  Save the task Array as Json to a file X in data directory\n"+
+        "load X :  Load the task Array from Json file X in data directory and change the value of the task array\n"+
+
+        ;
 }
 
 /**
