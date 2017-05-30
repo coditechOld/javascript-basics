@@ -222,7 +222,6 @@ function saveFile(name){
   }
 }
 function load(){
-  const saveName = (process.argv[2]||'file.json')
 
   if(!process.argv[2]){
     loadFile('file.json');

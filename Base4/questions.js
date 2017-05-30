@@ -45,15 +45,13 @@ var power = function(x, y) {
 return Math.pow(x,y);
 }
 var absoluteValue = function(num) {
-if (num<0)return -num;
-return num;
+return Math.abs(num);
 }
 var absoluteValueArray = function(array) {
-var absoluteArray = new Array();
+var absoluteArray = new Array(array.length);
 for(var i=0;i<array.length;i++){
-  if(array[i]<0){absoluteArray[i]=-array[i]}
-  else {absoluteArray[i]=array[i];}
-}
+absoluteArray[i]=absoluteValue(array[i]);}
+
 return absoluteArray;
 }
 var circleSurface = function(radius) {
@@ -121,6 +119,6 @@ return arr;
 }
 
 var invertArr = function(social_arr) {
-var arr=social_arr.reverse();
-return arr;
+  var arrayTemp=social_arr.slice(0);
+return arrayTemp.reverse();
 }

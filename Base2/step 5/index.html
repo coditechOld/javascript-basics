@@ -8,23 +8,37 @@
 
 <body>
   <div class="container">
-    <img src="images/image1.jpg" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" id="image1" />
-    <img src="images/image2.jpg" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" id="image2" />
-    <img src="images/image3.jpg" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" id="image3" />
-    <img src="images/image4.jpg" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" id="image4" />
-    <img src="images/image5.jpg" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" id="image5" />
+    <img src="images/image1.jpg" id="image1" />
+    <img src="images/image2.jpg"  id="image2" />
+    <img src="images/image3.jpg"  id="image3" />
+    <img src="images/image4.jpg"  id="image4" />
+    <img src="images/image5.jpg"  id="image5" />
   </div>
 </body>
 <script type="text/javascript">
+
   function changeImageIn(x) {
-    let change = x.src.slice(0, x.src.length - 4) + "_2.jpg";
-    x.src = change;
+    let change = x.target.src.slice(0, x.target.src.length - 4) + "_2.jpg";
+    x.target.src = change;
   }
 
   function changeImageOut(x) {
-    let change = x.src.slice(0, x.src.length - 6) + ".jpg";
-    x.src = change;
+    let change = x.target.src.slice(0, x.target.src.length - 6) + ".jpg";
+    x.target.src = change;
   }
+
+
+
+  document.getElementById('image1').addEventListener("mouseover", changeImageIn);
+  document.getElementById('image2').addEventListener("mouseover", changeImageIn);
+  document.getElementById('image3').addEventListener("mouseover", changeImageIn);
+  document.getElementById('image4').addEventListener("mouseover", changeImageIn);
+  document.getElementById('image5').addEventListener("mouseover", changeImageIn);
+  document.getElementById('image1').addEventListener("mouseout", changeImageOut);
+  document.getElementById('image2').addEventListener("mouseout", changeImageOut);
+  document.getElementById('image3').addEventListener("mouseout", changeImageOut);
+  document.getElementById('image4').addEventListener("mouseout", changeImageOut);
+  document.getElementById('image5').addEventListener("mouseout", changeImageOut);
 </script>
 
 </html>

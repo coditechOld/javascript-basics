@@ -2,22 +2,30 @@
 <html>
 
 <head>
+  <style media="screen">
+    .border{
+      border:3px solid red;
+    }
+    .noBorder{
+      border:3px solid transparent;
+    }
+  </style>
   <meta charset="utf-8">
   <title>Step 1</title>
 </head>
 
 <body>
-  <img src="images/image1.jpg" id="image1" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" />
+  <img src="images/image1.jpg" id="image1" class="noBorder" onmouseover="changeImageIn(this)" onmouseout="changeImageOut(this)" />
 </body>
 <script type="text/javascript">
   let img1 = document.getElementById('image1');
 
   function changeImageIn(x) {
-    img1.style = "border:3px solid red";
+    img1.className = "border";
   }
 
   function changeImageOut(x) {
-    img1.style = "";
+    img1.className = "noBorder";
   }
 </script>
 
