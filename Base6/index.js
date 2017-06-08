@@ -1,11 +1,18 @@
-const undone = [];
-var task = [];
-const doneArray = [];
-const parse = require('shell-quote').parse;
-const cp = require('child_process');
+let task_list_array = [];
 const fs = require('fs');
-var mode = 'normal';
-var edit_index = null;
+let mode = 'normal';
+let edit_index = null;
+
+const runFunction = {
+    hello
+    , quit
+    , 'exit': quit
+    , add
+    , list
+    , remove
+    , help
+    ,
+};
 /**
  * startApp - Starts the applucation
  *
@@ -19,7 +26,7 @@ function startApp(name) {
     console.log("Welcome to " + name + "'s application!")
     console.log("--------------------")
 }
-var waitingForData = false;
+let waitingForData = false;
 
 /**
  * onDataReceived - Decides what to do depending on the data that was received
@@ -29,44 +36,22 @@ var waitingForData = false;
  */
 function onDataReceived(text) {
 
-    const original = text;
     if (mode === 'normal') {
-        var args = parse(text);
-        console.log(args);
-        text = args[0];
-
-        if (text === 'quit' || text === 'exit') {
-            quit();
-        }
-        else if (text === 'hello' && args[1]) {
-            console.log(hello(args[1]));
-        } else if (text === 'hello') {
-            console.log(hello());
-        } else if (text === 'help') {
-            console.log(help());
-        }
 
 
-        else if (text === 'add' && args[1]) {
-            console.log("Adding Task to the list\n" +
-                "*****************\n"
-            );
-            add(task, args[1]);
-            console.log(task);
+        const args = [text,] = text.trim().split(' ');
+
+        console.log('text:', text, 'is in runFunction:', text in runFunction)
+        if (text in runFunction) {
+            // text(task, args[1]);
+            runFunction[text]([args[1], task_list_array]);
+
         }
 
-        else if (text === 'list') {
-            lists(task);
-        }
-
-        else if (text === 'remove' && args[1]) {
-            remove(task, args[1]);
-        }
 
         else if (text === 'remove') {
-            remove(task);
+            remove([task_list_array, args[1]]);
         }
-
         else if (text === 'edit' && args[1]) {
 
             mode = "edit";
@@ -74,24 +59,24 @@ function onDataReceived(text) {
 
         }
         else if (text === 'done' && args[1]) {
-            done(task, args[1]);
-            lists(task);
+            done(task_list_array, args[1]);
+            list(task_list_array);
         } else if (text === 'undone' && args[1]) {
-            unDone(task, args[1]);
-            lists(task);
+            unDone(task_list_array, args[1]);
+            list(task_list_array);
         }
         else if (text === 'save') {
-            save(task, args[1]);
-            lists(task);
+            save(task_list_array, args[1]);
+            list(task_list_array);
         } else if (text === 'load') {
             load(args[1]);
         }
         else {
-            unknownCommand(original);
+            unknownCommand(text);
         }
     } else if (mode === 'edit') {
 
-        task = edit(task, edit_index, text);
+        edit(task_list_array, edit_index, text);
 
         console.log('edit');
         mode = "normal";
@@ -114,15 +99,15 @@ function unknownCommand(c) {
 /**
  * hello - Says hello
  * hello X - Says hello X
- * @param {string} hello
+ * @param {string} person_name
  * @returns {string}
  */
-function hello(hello) {
-    if (!hello) {
-        return 'hello!';
+function hello([person_name]) {
+    if (!person_name) {
+        console.log('hello!');
 
     } else {
-        return 'hello ' + hello + '!';
+        console.log('hello ' + person_name + '!');
     }
 }
 
@@ -143,7 +128,7 @@ function quit() {
  * */
 function help() {
 
-    return "Base6 available command\n" +
+    console.log("Base6 available command\n" +
         "*****************\n" +
         "hello: Says hello\n" +
         "hello X: Says hello X!\n" +
@@ -151,121 +136,84 @@ function help() {
         "exit: exits the application\n" +
         "add: Adding a Task to the list\n" +
         "list: Displaying all the list\n" +
-        "remove: Removing The last Tasks from the list\n"+
-        "remove X: Removing The X Tasks from the list\n"+
-        "done X: Mark a task X as Done\n"+
-        "undone X:  Mark a task X as unDone\n"+
-        "save  X:  Save the task Array as Json to a file X in data directory\n"+
-        "load X :  Load the task Array from Json file X in data directory and change the value of the task array\n"+
-
-        ;
+        "remove: Removing The last Tasks from the list\n" +
+        "remove X: Removing The X Tasks from the list\n" +
+        "done X: Mark a task X as Done\n" +
+        "undone X:  Mark a task X as unDone\n" +
+        "save  X:  Save the task Array as Json to a file X in data directory\n" +
+        "load X :  Load the task Array from Json file X in data directory and change the value of the task array\n"
+    )
+    ;
 }
 
 /**
  * add  X- add task X to the list
  * @param {Array} task_array
  * @param {string} task_argument
- * @returns {Array}
+ * @returns {void}
  * */
-function add(task_array, task_argument) {
-
-    var taskJson = {
+function add([task_argument, task_array]) {
+    console.log("Adding Task to the list\n" +
+        "*****************\n"
+    );
+    let taskJson = {
         'task': task_argument,
-        'order': task.length,
+        'order': task_array.length,
         'done': false
     };
     task_array.push(taskJson);
-    return task_array;
-
 }
 
 /**
  * list - Listing all Tasks
- * @param {Array} tasks
+ * @param {Array} task_array
  * @returns {void}
  * */
-function lists(tasks) {
+function list([, task_array]) {
     console.log("Listing all Tasks\n" +
         "*****************\n"
     );
-
-    function compare(a, b) {
-        if (a.order < b.order)
-            return -1;
-        if (a.order > b.order)
-            return 1;
-        return 0;
-    }
-
-    tasks.sort(compare);
-
-    console.log(tasks);
+    console.log(task_array);
 
 }
 
 /**
  * remove   - remove the last task from the list
- * @returns {int}
+ * @param { Array } task_list_array
+ * @param { number } argument_to_be_removed
+ * @returns {void}
  * */
-function remove(task_array, args) {
-    if (task_array.length !== 0) {
+function remove([argument_to_be_removed, task_list_array]) {
 
-        if (parameterCheck(args)) {
-            if (/^\d+$/.test(args)) {
+    if (!(argument_to_be_removed in task_list_array)) {
+        argument_to_be_removed = isNaN(task_list_array.length) ? argument_to_be_removed = 0 : argument_to_be_removed = task_list_array.length - 1;
 
-
-                if (args < task_array.length && args >= 0) {
-                    console.log("removing task of order " + args);
-
-                    for (var i = 0; i < task_array.length; i++) {
-                        if (task_array[i].order == args) {
-                            console.log("removing task of order " + args);
-
-                            for (var j = 0; j < task_array.length; j++) {
-                                if (task_array[j].order > task_array[i].order) {
-                                    task_array[j].order--;
-                                }
-                            }
-
-                            task_array.splice(i, 1);
-                        }
-                    }
-                    // task_array.splice(args, 1);
-                    return 0;
-                } else {
-                    console.log("index supported is not in the list");
-                    return 1;
-                }
-            }
-            else {
-                console.log('argument supported ' + args + ' is not a number!')
-                return 2;
-
-
-            }
-        }
-        else {
-            console.log("Removing The last Tasks from the list\n" +
-                "*****************\n"
-            );
-
-            var i = task_array.length - 1;
-            for (var j = 0; j < task_array.length; j++) {
-                if (task_array[j].order > task_array[i].order) {
-                    task_array[j].order--;
-                }
-            }
-
-            task_array.splice(i, 1);
-
-            console.log(task);
-            console.log(i);
-            return 0;
-
-        }
-    } else {
-        console.log("array is empty");
     }
+    const obj = {
+        left: task_list_array.slice(0, argument_to_be_removed),
+        right: task_list_array.slice(argument_to_be_removed)
+    };
+
+    // let beforeArray = task_list_array.splice(0, argument_to_be_removed);
+    // let afterArray = task_list_array.splice(1, task_list_array.length).map(function (order) {
+    //
+    // });
+    // console.log(beforeArray);
+    // console.log(afterArray);
+    // task_list_array = [beforeArray, afterArray];
+    // console.log(afterArray);
+    console.log("removing task of order " + argument_to_be_removed);
+    console.log( obj.left);
+    console.log( obj.right);
+    // task_list_array.splice(argument_to_be_removed, 1);
+    /*
+     for (let i = 0; i < task_list_array.length; i++) {
+     if (task_list_array[i].order === argument_to_be_removed) {
+     console.log("removing task of order " + argument_to_be_removed);
+
+     }
+     }*/
+
 
 }
 
@@ -284,7 +232,7 @@ function edit(task_array, edit_index_arg, text_arg) {
     if ((task_array.length - 1 >= edit_index_arg) && (edit_index_arg >= 0)) {
 
 
-        for (var i = 0; i < task.length; i++) {
+        for (let i = 0; i < task_list_array.length; i++) {
 
             if (task_array[i].order == edit_index_arg) {
                 if (text_arg !== '\n') {
@@ -295,7 +243,6 @@ function edit(task_array, edit_index_arg, text_arg) {
                     console.log(task_array[i].order);
 
 
-                    return task_array;
                 }
                 else {
                     console.log('Quiting without change');
@@ -310,7 +257,6 @@ function edit(task_array, edit_index_arg, text_arg) {
         console.log('index is not in the task list');
     }
 
-    return task_array;
 
 }
 
@@ -328,10 +274,10 @@ function done(array_original, arg) {
         if (arg < array_original.length && arg >= 0) {
             console.log("2");
 
-            for (var i = 0; i < array_original.length; i++) {
+            for (let i = 0; i < array_original.length; i++) {
                 console.log("2");
 
-                if (task[i].order == arg) {
+                if (task_list_array[i].order == arg) {
                     console.log("22");
 
                     array_original[i].done = true;
@@ -360,10 +306,10 @@ function unDone(array_original, arg) {
         if (arg < array_original.length && arg >= 0) {
             console.log("2");
 
-            for (var i = 0; i < array_original.length; i++) {
+            for (let i = 0; i < array_original.length; i++) {
                 console.log("2");
 
-                if (task[i].order == arg) {
+                if (task_list_array[i].order == arg) {
                     console.log("22");
 
                     array_original[i].done = false;
@@ -431,11 +377,11 @@ function load(file) {
 
     if (file === undefined) {
         const content = fs.readFileSync("data/task.json");
-        task = JSON.parse(content);
+        task_list_array = JSON.parse(content);
     }
     else {
         const content = fs.readFileSync("data/" + file);
-        task = JSON.parse(content);
+        task_list_array = JSON.parse(content);
     }
 }
 
