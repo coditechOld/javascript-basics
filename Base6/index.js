@@ -21,69 +21,47 @@ function startApp(name) {
  * @param  {string} text data typed by the user
  * @returns {void}
  */
+
+var commands = {
+  exit: quit,
+  quit: quit,
+  help: help,
+  list: list,
+  save: save,
+  load: load,
+  hello: hello,
+  add: add,
+  remove: remove,
+  editMode: editMode,
+  edit: edit,
+  done: done,
+  undone: undone
+}
+
+
 function onDataReceived(text) {
+
+  var input = text.replace(/\s+/g, " ").trim();
+  var inputArgs = input.split(" ");
+  var command = inputArgs[0]
+  var arg = inputArgs[1]
+
+
   if (mode == "normal") {
 
-    if (text === 'quit\n' || text === 'exit\n') {
-      quit();
-    } else if (text === 'hello\n') {
-      hello();
-    } else if (text === 'help\n') {
-      help();
-    } else if (text.startsWith('hello ') && text.endsWith("\n")) {
-      helloSomeone(text.slice(6, text.length - 1));
-    } else if (text.startsWith('add ') && text.endsWith("\n")) {
-      add(text.slice(4, text.length - 1));
-    } else if (text === 'list\n') {
-      list();
-    } else if (text === "remove\n") {
-      remove();
-    } else if (text.startsWith('remove ') && text.endsWith("\n")) {
-      removeByIndex(parseInt(text.slice(7, text.length - 1)));
-    } else if (text.startsWith('edit ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
-      var index = parseInt(text.slice(5, text.length - 1));
-      editModeByIndex(index);
-    } else if (text === "edit\n") {
-      if (tasksList.length > 0) {
-        var index = tasksList.length - 1;
-        editModeByEdit();
-      } else {
-        console.log("\nyour task list is empty\n");
-      }
-    } else if (text == "save\n") {
-      save();
-    }else if (text == "load\n"){
-      load();
-    }
-     else if (text.startsWith('do ') && (/\d+/.test(text.trim().slice(3, text.length - 1))) && text.endsWith("\n")) {
-      if (tasksList.length > 0) {
-        var index = parseInt(text.slice(3, text.length - 1));
-        done(index);
-        console.log("\ndid task " + index + " - " + tasksList[index - 1].name)
-      } else {
-        console.log("\nyour task list is empty\n");
-      }
-
-    } else if (text.startsWith('undo ') && (/\d+/.test(text.trim().slice(5, text.length - 1))) && text.endsWith("\n")) {
-      if (tasksList.length > 0) {
-        var index = parseInt(text.slice(5, text.length - 1));
-        undone(index);
-        console.log("\nundid task " + index + " - " + tasksList[index - 1].name)
-      } else {
-        console.log("\nyour task list is empty\n")
-      }
+    if (command === 'add') {
+      commands.add(inputArgs.slice(1).join(" "));
+    } else if (command === 'edit') {
+      currentEditedTaskNumber = arg;
+      commands.editMode(arg);
+    } else if (command in commands) {
+      commands[command](arg)
     } else {
-      unknownCommand(text);
+      unknownCommand(input)
     }
-  } else if (mode == "edit") {
 
-    if (text.trim() == "") {
-      console.log("nothing changed going back to normal mode");
-      mode = "normal";
-    } else {
-      tasksList[index].name = text;
-      mode = "normal";
-    }
+  } else if (mode === "edit") {
+    commands.edit(currentEditedTaskNumber,inputArgs[0]);
   }
 }
 
@@ -104,13 +82,16 @@ function unknownCommand(c) {
  *
  * @returns {void}
  */
-function hello() {
-  console.log('\nhello!\n')
+
+function hello(x) {
+  if (x == null) {
+    console.log('\nhello!\n')
+  } else {
+    console.log('\nhello ' + x + "!\n");
+  }
 }
 
-function helloSomeone(x) {
-  console.log('\nhello ' + x + "!\n");
-}
+
 /**
  * add - adds a task and stores it in an array
  *
@@ -130,7 +111,7 @@ function add(x) {
  * @returns {void}
  */
 function list() {
-  console.log("\nhere's the list of tasksList:")
+  console.log("\nhere's the list of tasks:")
   for (var i = 0; i < tasksList.length; i++) {
     console.log((i + 1) + " - " + tasksList[i].name + ", status: " + tasksList[i].status);
 
@@ -153,62 +134,75 @@ function quit() {
  * remove - removes last taks from list
  *
  */
-function remove() {
-  console.log('\nremoved task:"' + tasksList.pop() + '"\n');
-}
-
-function removeByIndex(x) {
-  if (x < 0 || x >= tasksList.length || isNaN(x)) {
-    console.log("\nindex not in array or you haven't entered a number\n");
-  } else {
-    console.log('removed task: "' + tasksList.splice(x, 1) + '"\n');
+function remove(x) {
+  if (x == null) {
+    console.log('\nremoved task:"' + tasksList.pop().name + '"\n');
+  } else if (/\d+/.test(x)) {
+    if (x < 0 || (x >= tasksList.length + 1) || isNaN(x)) {
+      console.log("\nindex not in array or you haven't entered a number\n");
+    } else {
+      console.log('removed task: "' + tasksList.splice(x, 1).name + '"\n');
+    }
   }
 }
+
+
 /**
  * edit - editing tasksList values
  *
  */
-function editModeByIndex(x) {
-  console.log("\nedit mode\n");
-  if (x <= tasksList.length && x > 0) {
+function editMode(x) {
+
+  if (x <= tasksList.length && x > 0 && (/\d+/.test(x))) {
     mode = "edit";
-    console.log("\nediting task: " + tasksList[x - 1].name + "\n");
+    console.log("\nedit mode\n");
+    console.log("editing task: " + tasksList[x - 1].name + "\n");
   } else {
-    console.log("\nthat index is not within the number of tasksList, number of tasksList is: " + tasksList.length)
+    console.log("\ninvalid input please enter a number withing the lists' length: " + tasksList.length)
   }
 }
 
-function editModeByEdit() {
-  console.log("\nedit mode\n");
-  if (tasksList.length > 0) {
-    mode = "edit";
-    console.log("\nediting task: " + tasksList[tasksList.length - 1].name + "\n");
-  }
+function edit(index, x) {
+  tasksList[index-1].name = x;
+  console.log("\ntask edited\n");
+  mode="normal";
 }
+
+
 
 function done(x) {
-  tasksList[x - 1].status = "done";
+  if (x <= tasksList.length && x > 0 && (/\d+/.test(x))) {
+    tasksList[x - 1].status = "done";
+    console.log("\ndid task: " + tasksList[x - 1].name);
+  } else {
+    console.log("\ninvalid input please enter a number withing the lists' length: " + tasksList.length)
+  }
 }
 
 function undone(x) {
-  tasksList[x - 1].status = "undone";
+  if (x <= tasksList.length && x > 0 && (/\d+/.test(x))) {
+    tasksList[x - 1].status = "undone";
+    console.log("\nundid task: " + tasksList[x - 1].name);
+  } else {
+    console.log("\ninvalid input please enter a number withing the lists' length: " + tasksList.length)
+  }
 }
 
 function save() {
-  if(!process.argv[2]){
+  if (!process.argv[2]) {
     saveFile('file.json');
-  }
-  else{
+  } else {
     saveFile(process.argv[2]);
   }
 }
-function saveFile(name){
-  console.log('saving to',name)
+
+function saveFile(name) {
+  console.log('saving to', name)
   if (tasksList.length > 0) {
     var str = JSON.stringify(tasksList);
     fs.writeFile(name, str, {
       encoding: 'utf8'
-    }, function(err) {
+    }, function (err) {
       if (err) {
         console.error('there was an error: ', err);
         return;
@@ -221,21 +215,22 @@ function saveFile(name){
     console.log("\nyour console is empty\n")
   }
 }
-function load(){
 
-  if(!process.argv[2]){
+function load() {
+
+  if (!process.argv[2]) {
     loadFile('file.json');
-  }
-  else{
+  } else {
     loadFile(process.argv[2]);
   }
 }
-function loadFile(name){
+
+function loadFile(name) {
   console.log("\nfile is loaded\n")
   fs.readFile(name, 'utf8', function (err, data) {
-  if (err) throw err;
-  tasksList = JSON.parse(data);
-});
+    if (err) throw err;
+    tasksList = JSON.parse(data);
+  });
 }
 /**
  * help - lists all possible inputs
@@ -254,13 +249,19 @@ function help() {
     'edit - enters edit mode\n' +
     'edit "index" - enters edit mode at that index\n' +
     'do "index" - changes a tasksList status to done\n' +
-    'undo "index" - changes a tasksList status to undone\n'+
-  'save - saves the tasksList in a file\n');
+    'undo "index" - changes a tasksList status to undone\n' +
+    'save - saves the tasksList in a file\n');
 }
 
 // STARTING THE APPLICATION HERE!
 
+const state = {
+  mode: 'normal',
+  currentTask: 0
+}
+
 let mode = "normal";
+let currentEditedTaskNumber = 0
 let tasksList = new Array();
 
 
