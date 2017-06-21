@@ -9,15 +9,20 @@
             <label for="name">name : </label><input type="text" name="name" id="name"/>
             <label for="surname">surname : </label><input type="text" name="surname" id="surname"/>
             <label for="city">city : </label><input type="text" name="city" id="city"/>
-            <button  name="validate" id="validate">Validate</button>
+            <button name="validate" id="validate" onclick="gettings()">Validate</button>
         </form>
         <script>
-            
-      var x=document.getElementById("name").value
-      var y=document.getElementById("surname").value
-      var z=document.getElementById("city").value
+        
 
-            alert("name:"+x+"\nsurname:"+y+"\ncity"+z)
-            </script>
+        var gettings = function() {
+         let   name = document.getElementById("name").value;
+         let surname = document.getElementById("surname").value;
+          let city = document.getElementById("city").value;
+         alert("Hello, "+name+" "+surname+", you are from "+city);
+        }
+    
+
+
+     </script>
     </body>
 </html>
