@@ -7,7 +7,19 @@
     <body>
         <form>
             <label for="age">your age : </label><input type="text" id="age" name="age"/><br/>
-            <button id="validate" name="validate">validate</button>
+           <button name="validate" id="validate" onclick="gettings()">Validate</button>
         </form>
+<script>
+    var gettings = function(){
+        let age = document.getElementById("age").value;
+        if(age>18){
+            alert("you are over 18");
+        
+        }
+        else{
+            alert("you are under 18");
+        }
+    }
+    </script>
     </body>
 </html>
