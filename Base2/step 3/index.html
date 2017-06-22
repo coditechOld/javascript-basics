@@ -8,5 +8,14 @@
   <form>
     <label for="name">Your name  : </label><input type="text" name="name" value="" id="name"/>
   </form>
+  <div id="name2">
+    </div>
+    <script>
+     document.getElementById("name").addEventListener("change", function(){
+      document.getElementById("name2").innerHTML=document.getElementById("name").value
+     })
+
+
+    </script>
 </body>
 </html>
