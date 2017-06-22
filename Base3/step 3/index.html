@@ -7,12 +7,29 @@
 </head>
 <body>
   <div id="text">
-  <p>Tara, originellement nommée Antarctica puis Seamaster, est une goélette française destinée à la fois à l'exploration et à la défense de l'environnement. Dans le cadre de l'Année polaire internationale, en 2007-2008, ce voilier est utilisé en Arctique par l'expédition Tara Arctic dans le but de faire des relevés permettant de mieux comprendre les changements climatiques qui s'opèrent en Arctique. En 2009, dans le cadre de l'expédition Tara Oceans, Tara parcourt les mers et les océans dans une circumnavigation de trois ans afin d'étudier le piégeage des molécules de gaz carbonique (CO2) par les micro-organismes marins comme le plancton. En avril 2016, une nouvelle expédition est montée Tara Pacific dont l'objectif est de comprendre le corail, menacé par des facteurs humains et climatiques1.</p>
+  <p id='ba'>Tara, originellement nommée Antarctica puis Seamaster, est une goélette française destinée à la fois à l'exploration et à la défense de l'environnement. Dans le cadre de l'Année polaire internationale, en 2007-2008, ce voilier est utilisé en Arctique par l'expédition Tara Arctic dans le but de faire des relevés permettant de mieux comprendre les changements climatiques qui s'opèrent en Arctique. En 2009, dans le cadre de l'expédition Tara Oceans, Tara parcourt les mers et les océans dans une circumnavigation de trois ans afin d'étudier le piégeage des molécules de gaz carbonique (CO2) par les micro-organismes marins comme le plancton. En avril 2016, une nouvelle expédition est montée Tara Pacific dont l'objectif est de comprendre le corail, menacé par des facteurs humains et climatiques1.</p>
   </div>
   <div>
-  <div class="color green" ></div>
-  <div class="color red" ></div>
-  <div class="color blue" ></div>
+  <div class="color green" id='green'></div>
+  <div class="color red" id='red'></div>
+  <div class="color blue" id='blue' ></div>
 </div>
+ <script>
+    document.getElementById("green").addEventListener("click", function(){
+
+  let x= document.getElementById('ba').style.color ="green"
+
+    })
+    document.getElementById("red").addEventListener("click", function(){
+
+  let x= document.getElementById('ba').style.color ="red"
+
+    })
+    document.getElementById("blue").addEventListener("click", function(){
+
+  let x= document.getElementById('ba').style.color ="blue"
+
+    })
+    </script>
 </body>
 </html>
