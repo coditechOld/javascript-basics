@@ -1,11 +1,28 @@
-<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Step 1</title>
-  </head>
-  <body>
-      <img src="images/image1.jpg" id="image1" />
-      <script src="./script.js"></script>
-  </body>
+</head>
+<body>
+<img src="images/image1.jpg" id="image1"/>
+</body>
+<script type="text/javascript">
+
+    alert('ss');
+    let img1 = document.querySelector('#image1');
+    const changeImageIn = function () {
+alert('hi 1 ');
+        img1.src = 'images/image1_2.jpg';
+
+    };
+    function changeImageOut() {
+        alert('hi 2 ');
+
+        img1.src = 'images/image1.jpg';
+    }
+    img1.addEventListener("mouseover", changeImageIn);
+    img1.addEventListener("mouseout", changeImageOut);
+
+
+</script>
 </html>
