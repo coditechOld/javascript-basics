@@ -16,7 +16,7 @@
         /* if (!global.matrixOperations) {
          throw new Error('module matrixOperations is needed!')
          }*/
-        // global.math = factory(matrixOperations)
+        global.taskLib = factory();
     }
 })(this,
     function () {
