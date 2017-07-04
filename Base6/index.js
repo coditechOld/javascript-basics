@@ -159,18 +159,40 @@ else {
 console.log(Tasklist)}
 }
 
-function save(){
+function getFilename(name){
+  var filename;
+  
+  if(!process.argv[2]){
+    if(name){
+      filename = name
+    }
+    else{
+      filename = "base6.json"
+    }
+  }else{
+    filename = process.argv[2]
+  }
+
+  return filename
+}
+
+function save(name){
+  var filename = getFilename(name)
   var json = JSON.stringify(Tasklist);
-  console.log("::::::SAVE:::::",json)
-  fs.writeFile('Base6.json', json, 'utf8', function writeFileCallback(err, data){
+  //console.log("::::::SAVE:::::",json)
+  fs.writeFile(filename, json, 'utf8', function writeFileCallback(err, data){
     if (err){
       console.log(err);
     }
   })
+
 }
 
-function load(){
-  fs.readFile('Base6.json', 'utf8', function readFileCallback(err, data){
+
+function load(name){
+  var filename = getFilename(name)
+ 
+  fs.readFile(filename, 'utf8', function readFileCallback(err, data){
     if (err){
       console.log(err);
     } else {
@@ -180,11 +202,9 @@ function load(){
   })
 }
 
-function config(secondPart,thirdPart){
-  var config1 = process.argv[secondPart]=thirdPart
-  console.log(Tasklist)
 
-}
+
+
 
 
 
