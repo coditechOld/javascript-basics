@@ -62,9 +62,7 @@ function onDataReceived(text) {
   else if (firstPart === 'load'){
     load(secondPart)
   }
-  else if (firstPart === 'config'){
-    config(secondPart,thirdPart)
-  }
+ 
   else{
     unknownCommand(text);
   }
