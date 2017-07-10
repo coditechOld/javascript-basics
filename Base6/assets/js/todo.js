@@ -12,10 +12,9 @@ const loadTaskToView = function (task_list) {
     doneTaskUl.innerHTML = '';
     undoneTaskUl.innerHTML = '';
     for (var i = 0; i < task.length; i++) {
-        /*for (var y = i; y < task_list.length; y++) {
-         }*/
         for (var y = 0; y < taskForSecondLoop.length; y++) {
             if (taskForSecondLoop[y].order === task[i].order) {
+
                 if (task[i].done) {
 
                     const newLi = document.createElement("li");
@@ -51,7 +50,13 @@ const loadTaskToView = function (task_list) {
 
                     newLi.appendChild(buttonUndone);
 
-                    doneTaskUl.appendChild(newLi);
+                    if (doneTaskUl.hasChildNodes()) {
+                        doneTaskUl.insertBefore(newLi, doneTaskUl.childNodes[0]);
+                    }
+                    else {
+                        doneTaskUl.appendChild(newLi);
+
+                    }
 
                 }
                 else {
@@ -91,6 +96,7 @@ const loadTaskToView = function (task_list) {
 
                     undoneTaskUl.appendChild(newLi)
                 }
+                break;
             }
 
 
