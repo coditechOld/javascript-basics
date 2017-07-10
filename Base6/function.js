@@ -119,18 +119,30 @@
          * @returns {Array}
          * */
         function done(arg, array_original) {
+
+            let index = arg;
             const arrayReturn = array_original;
-            const index = (arg > 0 && arrayReturn.length - 1 > arg) ? arg : -1;
-
-
+            let array = [];
+            if (index < 0 || index >= arrayReturn.length || index === undefined) {
+                index = -1;
+            }
             if (index !== -1) {
 
                 arrayReturn[arg].done = true;
+                const originalOrder = arrayReturn[arg].order;
 
+                arrayReturn.map((item, index) => {
+
+                    if (item.order > originalOrder && !item.done) {
+                        arrayReturn[arg].order = item.order;
+                        item.order--;
+                    }
+                    return item.order;
+                });
+                // arrayReturn[arg].order = arrayReturn.length - 1;
             }
             else {
-                console.log('parameter Supported index' + arg + ' is not available in the array.')
-
+                console.log('parameter Supported index' + arg + ' is not available in the array.');
             }
 
             return arrayReturn;
@@ -148,9 +160,21 @@
 
             if (arg < arrayReturn.length && arg >= 0) {
 
+                const originalOrder = arrayReturn[arg].order;
 
                 arrayReturn[arg].done = false;
+                var small = arrayReturn[arg].order;
+                arrayReturn.map((item, index) => {
+                    console.log('order = ' + item.order);
 
+
+                    if (item.order < originalOrder && item.done) {
+                        arrayReturn[arg].order = item.order < arrayReturn[arg].order ? item.order : arrayReturn[arg].order;
+                        item.order++;
+                    }
+                    console.log('order = ' + item.order);
+                    return item.order;
+                });
             } else {
                 console.log('parameter Supported index' + arg + ' is not available in the array.')
 

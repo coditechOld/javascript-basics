@@ -150,6 +150,19 @@ function save(file, data) {
 }
 
 
+var content;
+// First I want to read the file
+fs.readFile('./Index.html', function read(err, data) {
+    if (err) {
+        throw err;
+    }
+    content = data;
+
+    // Invoke the next step here however you like
+    console.log(content);   // Put all of the code here (not the best solution)
+
+});
+
 /**
  * save  - save task array to json file
  *      take 1 attribute that is the data the need to be saved
@@ -162,6 +175,7 @@ function load(file) {
     if (file === undefined) {
         const content = fs.readFileSync("data/task.json");
         task_list_array = JSON.parse(content);
+
     }
     else {
         const content = fs.readFileSync("data/" + file);

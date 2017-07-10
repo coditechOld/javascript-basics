@@ -32,31 +32,24 @@
         <h1>My ToDo List</h1>
 
         <div class="user-input">
-            <input id="todoInput" name="todoInput" type="text" placeholder="Add a new item here" class="input-field">
+            <form action="" id="formSubmit">
+                <input id="todoInput" name="todoInput" type="text" placeholder="Add a new item here"
+                       class="input-field">
 
-            <button class="submit-button">
-                Submit
-            </button>
+                <button class="submit-button" id="submit-button">
+                    Submit
+                </button>
+            </form>
         </div>
 
 
         <div class="list-output">
-            <ul>
-                <li class="task">
-                    <button class="task-mark-done" data-id="1"><i class="fa fa-check-square-o"></i></button>
-                    <span class="task-info">Buy groceries</span>
-                    <button class="task-mark-remove pull-right"><i class="fa fa-times"></i></button>
-                </li>
-                <li class="task">
-                    <button class="task-mark-undone" data-id="2"><i class="fa fa-square-o"></i></button>
+            <ul class="list-output-ul">
+               <!-- <li class="task task-undone">
+                    <button class="task-mark-undone"  data-id="2"><i class="fa fa-square-o"></i></button>
                     <span class="task-info">Empty dishwasher</span>
                     <button class="task-mark-remove pull-right"><i class="fa fa-times"></i></button>
-                </li>
-                <li class="task">
-                    <button class="task-mark-done" data-id="3"><i class="fa fa-check-square-o"></i></button>
-                    <span class="task-info">Buy tickets for the show</span>
-                    <button class="task-mark-remove  pull-right"><i class="fa fa-times"></i></button>
-                </li>
+                </li>-->
             </ul>
 
         </div>
@@ -68,20 +61,29 @@
 
 
         <div class="list-output">
-            <ul>
-                <li class="task task-done">
-                    <button class="task-mark-done"><i class="fa fa-check-square-o"></i></button>
-                    <span class="task-info">Buy groceries</span>
-                    <button class="task-mark-remove pull-right"><i class="fa fa-times"></i></button>
-                </li>
+            <ul class="doneTask" id="doneTask">
+               <!-- <li class="task task-done">
+                    <button class="task-mark-done" data-id="3"><i class="fa fa-check-square-o"></i></button>
+                    <span class="task-info">Buy tickets for the show</span>
+                    <button class="task-mark-remove  pull-right"><i class="fa fa-times"></i></button>
+                </li>-->
             </ul>
 
         </div>
 
     </section>
 
-    <section class="photo-area">
+    <section class="">
+        <form>
+            <input type="text" name="file">
+            <button type="button" id="save_button">
 
+                save
+            </button>
+            <button type="button" id="load_button">
+                load
+            </button>
+        </form>
     </section>
 </div>
 
