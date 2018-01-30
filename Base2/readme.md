@@ -7,7 +7,7 @@
 3. Change the image when the mouse is on it
 4. Commit
 
-## Exercice 2
+## Step 2
 
 1. Target the input (querySelector)
 2. When the input loses focus, show a dialog saying "thank you for participating!" (onblur)
