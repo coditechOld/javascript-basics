@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 
 /**
  * startApp - Starts the applucation
@@ -5,12 +7,16 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+
+var Tasklist =[];
+
 function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
   console.log("Welcome to "+name+"'s application!")
   console.log("--------------------")
+  
 }
 
 
@@ -21,12 +27,42 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  var input = text.replace("\n","").split(' ')
+  var firstPart = input[0];
+  var secondPart = input[1];
+  var thirdPart = input[2];
+  //console.log("-------\n"+firstPart+"SSSSSSS\n--------")
+  if (firstPart === 'quit'|| firstPart === 'exit') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(firstPart === 'hello'){
+    hello(secondPart);
   }
+  else if(firstPart === 'help') { 
+    help();
+
+  }
+  else if(firstPart === 'add')
+  {  add(secondPart,thirdPart)
+
+  }
+  else if(firstPart === 'list'){
+    console.log(Tasklist)
+  }
+  else if (firstPart === 'remove'){
+    remove(secondPart);
+  }
+  else if (firstPart === 'edit'){
+     edit(secondPart,thirdPart);
+
+  }
+  else if (firstPart === 'save'){
+    save(secondPart);
+  }
+  else if (firstPart === 'load'){
+    load(secondPart)
+  }
+ 
   else{
     unknownCommand(text);
   }
@@ -49,8 +85,20 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(x){
+  if(x){
+  console.log('hello '+x.trim()+' !');}
+  else{
+    console.log('hello!');
+  }
+}
+/**
+ * help -  lists all the possible commands
+ *
+ * @returns {void}
+ */
+function help(){
+console.log('hello\nquit or exit\nhelp\n')
 }
 
 
@@ -64,5 +112,100 @@ function quit(){
   process.exit();
 }
 
+/**
+ * add - allows to add a task
+ *
+ * @returns {void}
+ */
+function add(secondPart,thirdPart){
+  var text = {task:secondPart,status:thirdPart } 
+  console.log(text)
+  Tasklist.push(text)
+  console.log(Tasklist)
+}
+/**
+ * remove - allows to remove the last task 
+ *
+ * @returns {void}
+ */
+function remove(x){
+  if (x<Tasklist.length){
+  Tasklist.splice(x,1);
+   console.log(Tasklist)}
+   else {
+     console.log('Number Does Not Exist')
+   }
+}
+
+function isUndefined(x){
+  return ( typeof x == 'undefined')
+}
+
+/**
+ * edit - allows to edit the last task 
+ *
+ * @returns {void}
+ */
+function edit(x,y){
+  x1 = isUndefined(x);
+  x2 = isUndefined(y);
+  if(x === x1 || y === x2){
+console.log('Please Enter Values !!')
+console.log('Array Unchanged'+ Tasklist)}
+else {
+  Tasklist.splice(x,1,y)
+console.log(Tasklist)}
+}
+
+function getFilename(name){
+  var filename;
+  
+  if(!process.argv[2]){
+    if(name){
+      filename = name
+    }
+    else{
+      filename = "base6.json"
+    }
+  }else{
+    filename = process.argv[2]
+  }
+
+  return filename
+}
+
+function save(name){
+  var filename = getFilename(name)
+  var json = JSON.stringify(Tasklist);
+  //console.log("::::::SAVE:::::",json)
+  fs.writeFile(filename, json, 'utf8', function writeFileCallback(err, data){
+    if (err){
+      console.log(err);
+    }
+  })
+
+}
+
+
+function load(name){
+  var filename = getFilename(name)
+ 
+  fs.readFile(filename, 'utf8', function readFileCallback(err, data){
+    if (err){
+      console.log(err);
+    } else {
+      console.log("::::LOAD::::",data)
+      Tasklist = JSON.parse(data); //now it an object
+    }
+  })
+}
+
+
+
+
+
+
+
+
 // STARTING THE APPLICATION HERE!
-startApp("Jad Sarout")
+startApp("Selim Richa")

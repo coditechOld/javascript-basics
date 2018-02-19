@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+ <meta charset="utf-8">
   <title>Step 4</title>
 </head>
 <body>
-  <form>
-    <label for="name">Your name  : </label><input type="text" name="name" value="Doe" id="name" />
-    <label for="surname">Your surname  : </label><input type="text" name="surname" value="John" id="surname" />
-    <label for="city">Your city  : </label><input type="text" name="city" value="New York" id="city" />
-    <button type="button" name="button">Reset</button>
+  <form id="myForm">
+    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name" />
+    <label for="surname">Your surname  : </label><input type="text" name="surname" value="" id="surname" />
+    <label for="city">Your city  : </label><input type="text" name="city" value="" id="city" />
+    <button type="button" name="button" id="button">Reset</button>
   </form>
+<script>
+  document.getElementById("button").addEventListener("click", function(){
+  var answer = confirm("Do you want to reset the fields ? ")
+if (answer) {
+    document.getElementById("myForm").reset();
+}
+else {
+  alert("not cleared")
+}
+  
+
+})
+  </script>
 </body>
 </html>
