@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Step 4</title>
 </head>
+
 <body>
   <form>
-    <label for="password">password : </label><input type="text" name="password" value="" id="password" />
-    <label for="confirmation">Confirm : </label><input type="text" name="confirmation" value="" id="confirmation" />
-    <button type="button" name="button" >Test</button>
+    <label for="password">password : </label>
+    <input type="text" name="password" value="" id="password" />
+    <label for="confirmation">Confirm : </label>
+    <input type="text" name="confirmation" value="" id="confirmation" />
+    <button type="button" name="button">Test</button>
   </form>
+  <script>
+    const b = document.querySelector('button');
+    b.addEventListener('click', test)
+
+    function test() {
+      let pass = document.getElementById('password');
+      let cpass = document.getElementById('confirmation');
+      if (pass.value !== cpass.value) {
+        pass.style.border = "2px solid red";
+        cpass.style.border = "2px solid red";
+      }
+    }
+  </script>
 </body>
+
 </html>

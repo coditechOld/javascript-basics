@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Step 2</title>
 </head>
+
 <body>
   <form>
-    <label for="name">Your name  : </label><input type="text" name="name" value="" id="name"/>
+    <label for="name">Your name : </label>
+    <input type="text" name="name" value="" id="name" />
   </form>
 </body>
+<script>
+  var n = document.querySelector("#name");
+  n.addEventListener("blur", event);
+
+  console.log(name);
+
+  function event() {
+    window.prompt("thank you for participating!")
+  }
+</script>
+
 </html>
