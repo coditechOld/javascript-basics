@@ -1,0 +1,17 @@
+{
+  "name": "base6",
+  "version": "1.0.0",
+  "description": "Base6 javascript-basics",
+  "main": "index.js",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "0.0.1-security",
+    "shell-quote": "^1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gaby karam",
+  "license": "MIT"
+}

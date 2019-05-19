@@ -8,7 +8,20 @@
   <form>
     <label for="password">password : </label><input type="text" name="password" value="" id="password" />
     <label for="confirmation">Confirm : </label><input type="text" name="confirmation" value="" id="confirmation" />
-    <button type="button" name="button" >Test</button>
+    <button type="button" name="button" id="button" >Test</button>
   </form>
+
+  <script>
+    const button =  document.getElementById('button');
+    const password = document.getElementById('password');
+    const confirmation = document.getElementById('confirmation');
+    button.addEventListener('click', function () {
+
+        if(password.value !== confirmation.value){
+            password.style.border = "1px solid red";
+            confirmation.style.border = "1px solid red";
+        }
+    });
+  </script>
 </body>
 </html>

@@ -14,75 +14,75 @@ describe('Character Strings: ', function () {
           var result = replaceCharacterE('This text has a certain number of characters');
           expect(result).toEqual('This t xt has a certain number of characters');
       });
-    })
+    });
     describe('concatString',function(){
       it('Concatenates two strings', function () {
           var result = concatString('el Javascript shi ', 'ra2e3');
           expect(result).toEqual('el Javascript shi ra2e3');
       });
-    })
+    });
     describe('showChar5',function(){
       it('Shows the fifth character', function () {
           var result = showChar5('TDD kicks ass');
           expect(result).toEqual('k');
       });
-    })
+    });
     describe('showChar9',function(){
       it('Prints the first 9 characters', function () {
           var result = showChar9('But it is really annoying to write');
           expect(result).toEqual('But it is');
       });
-    })
+    });
     describe('toCapitals',function(){
       it('Transforms a string to all caps', function () {
           var result = toCapitals('Another useful function');
           expect(result).toEqual('ANOTHER USEFUL FUNCTION');
       });
-    })
+    });
     describe('toLowerCase',function(){
       it('Transforms a string to lower case', function () {
           var result = toLowerCase('This is a sentence!');
           expect(result).toEqual('this is a sentence!');
       });
-    })
+    });
     describe('removeSpaces',function(){
       it('Removes space before and after the function', function () {
           var result = removeSpaces(' Rome wasn\'t built in a day ');
           expect(result).toEqual('Rome wasn\'t built in a day');
       });
-    })
+    });
     describe('IsString',function(){
       it('Checks if a passed parameter is a string', function () {
           var result = IsString('Is this a string?');
           expect(result).toEqual(true);
       });
-    })
+    });
     describe('getExtension',function(){
       it('Extracts the file extension', function () {
           var result = getExtension('images/photo01.jpg');
           expect(result).toEqual('jpg');
       });
-    })
+    });
     describe('countSpaces',function(){
       it('Counts the number of space characters in a string', function () {
           var result = countSpaces('Sire open we have a big one!');
           expect(result).toEqual(6);
       });
-    })
+    });
     describe('InverseString',function(){
       it('Inverses a string', function () {
           var result = InverseString('Après demain, à partir d\'aujourd\'hui?');
           expect(result).toEqual('?iuh\'druojua\'d ritrap à ,niamed sèrpA');
       });
     })
-})
+});
 describe('Numbers and math : ', function () {
   describe('power',function(){
     it('Calculate the power of a number by another', function () {
         var result = power(2, 3);
         expect(result).toEqual(8);
     });
-  })
+  });
   describe('absoluteValue',function(){
     it('Get the absolute value of a number', function () {
         var result = absoluteValue(-5);
@@ -125,28 +125,28 @@ describe("Arrays", function() {
   });
   it('Replaces the 3rd element of the Array with "Javascript"', function () {
       var languages = createLanguagesArray();
-      var languages = replaceElement(languages);
+       languages = replaceElement(languages);
       expect(languages).toEqual(['Html', 'CSS', 'Javascript', 'PHP']);
   });
   it('Adds "Ruby" and "Python" at the end of the array', function () {
       var languages = createLanguagesArray();
-      var languages = replaceElement(languages)
-      var languages = addElement(languages);
+       languages = replaceElement(languages)
+       languages = addElement(languages);
       expect(languages).toEqual(['Html', 'CSS', 'Javascript', 'PHP', 'Ruby', 'Python']);
   });
   it('Adds "-2" and "-1" at the beginning of the numbers array', function () {
       var nombres = [0,1,2,3,4,5];
-      var nombres = addNumberElement(nombres);
+       nombres = addNumberElement(nombres);
       expect(nombres).toEqual([-2,-1,0,1,2,3,4,5]);
   });
   it('Removes the first element', function () {
       var languages = ['Html', 'CSS', 'Javascript', 'PHP', 'Ruby', 'Python'];
-      var languages = removeFirst(languages);
+       languages = removeFirst(languages);
       expect(languages).toEqual(['CSS', 'Javascript', 'PHP', 'Ruby', 'Python']);
   });
   it('Removes the last element', function () {
       var languages = ['CSS', 'Javascript', 'PHP', 'Ruby', 'Python'];
-      var languages = removeLast(languages);
+       languages = removeLast(languages);
       expect(languages).toEqual(['CSS', 'Javascript', 'PHP', 'Ruby']);
   });
   it('Converts a string into an array', function () {
@@ -161,12 +161,12 @@ describe("Arrays", function() {
   });
   it('Sorts the array', function () {
       var reseaux_sociaux = ['Facebook','Twitter', 'Google +','Viadeo','LinkedIn'];
-      var reseaux_sociaux = sortArr(reseaux_sociaux);
+       reseaux_sociaux = sortArr(reseaux_sociaux);
       expect(reseaux_sociaux).toEqual(['Facebook','Google +','LinkedIn','Twitter','Viadeo']);
   });
   it('Inverts the array', function () {
       var languages = ['CSS','Javascript','PHP','Ruby'];
-      var languages = invertArr(languages);
+       languages = invertArr(languages);
       expect(languages).toEqual(["Ruby", "PHP", "Javascript", "CSS"]);
   });
 });

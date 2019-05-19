@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+    <!-- META TAGS
+          these help describe the content on our page to the browser
+          they can help the browser to properly render our page
+          -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>Shopping List</title>
+
+    <!-- STYLESHEETS
+          these help style our page.  We include normalize, then any frameworks we are using
+          then our custom styles
+          -->
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Quando' rel='stylesheet' type='text/css'>-->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="page-wrap">
+
+    <section class="list-area">
+
+        <h1>My ToDo List</h1>
+
+        <div class="user-input">
+            <form action="" id="formSubmit">
+                <input id="todoInput" name="todoInput" type="text" placeholder="Add a new item here"
+                       class="input-field">
+
+                <button class="submit-button" id="submit-button">
+                    Submit
+                </button>
+            </form>
+        </div>
+
+
+        <div class="list-output">
+            <ul class="list-output-ul">
+               <!-- <li class="task task-undone">
+                    <button class="task-mark-undone"  data-id="2"><i class="fa fa-square-o"></i></button>
+                    <span class="task-info">Empty dishwasher</span>
+                    <button class="task-mark-remove pull-right"><i class="fa fa-times"></i></button>
+                </li>-->
+            </ul>
+
+        </div>
+
+    </section>
+    <section class="list-area">
+
+        <h1>My Done List</h1>
+
+
+        <div class="list-output">
+            <ul class="doneTask" id="doneTask">
+               <!-- <li class="task task-done">
+                    <button class="task-mark-done" data-id="3"><i class="fa fa-check-square-o"></i></button>
+                    <span class="task-info">Buy tickets for the show</span>
+                    <button class="task-mark-remove  pull-right"><i class="fa fa-times"></i></button>
+                </li>-->
+            </ul>
+
+        </div>
+
+    </section>
+
+    <section class="">
+        <form>
+            <input type="text" name="file">
+            <button type="button" id="save_button">
+
+                save
+            </button>
+            <button type="button" id="load_button">
+                load
+            </button>
+        </form>
+    </section>
+</div>
+
+
+<script src="function.js"></script>
+<script src="assets/js/todo.js"></script>
+
+
+</body>
+</html>

@@ -9,5 +9,27 @@
             <label for="age">your age : </label><input type="text" id="age" name="age"/><br/>
             <button id="validate" name="validate">validate</button>
         </form>
+
+        <script>
+            /**
+             * Created by gabykaram on 5/22/17.
+             */
+            const age = document.getElementById("age");
+
+            const validate = document.getElementById("validate");
+
+            validate.addEventListener('click', function () {
+               if(age.value > 18){
+                   alert("You are over 18");
+               }else if(parseInt(age.value) === 18){
+                   alert("You are  18");
+
+               }else {
+                   alert("You are under 18");
+
+               }
+            });
+
+        </script>
     </body>
 </html>
